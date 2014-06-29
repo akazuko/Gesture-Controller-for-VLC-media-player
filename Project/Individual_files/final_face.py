@@ -40,18 +40,22 @@ def facedetect():
 
 def simulate():
 	kebd.tap_key("space")
-	
+
+os = os_detect()	
+if "Linux" in os:
+
+	state = 0
+	while True:
+		title = check_win()
 		
-state = 0
-while True:
-	title = check_win()
-	
-	if "VLC media player" in title:
-		face = facedetect()
-		if (state == 1 and face ==3):
-			simulate()
-			state = 0
-		elif(state ==0 and face == 5):
-			simulate()
-			state = 1
+		if "VLC media player" in title:
+			face = facedetect()
+			if (state == 1 and face ==3):
+				simulate()
+				state = 0
+			elif(state ==0 and face == 5):
+				simulate()
+				state = 1
+else:
+	print "Oops, you don't have Ubuntu installed and this project works on that only"
 	

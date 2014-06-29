@@ -96,7 +96,8 @@ def fistdetect():
 
 
 #TO PLAY/PAUSE BASED ON THE FACE PRESENCE	
-def facepy():		
+def facepy(stat):	
+	print "facepy" + stat	
 	state = 0
 	while True:
 		title = check_win()
@@ -113,7 +114,8 @@ def facepy():
 
 
 #TO ALTER THE VOLUME BASED UPON FIST MOVEMENTS
-def Volpy():
+def Volpy(state):
+	print "Volpy" + state
 	while True:
 		title = check_win()
 		
@@ -125,7 +127,9 @@ def Volpy():
 def main():
 	print "FEATURE BASED RECOGNITION INITIATED"
 	if __name__ == "__main__":
-		thread1 = Thread(target = facepy, args = ())
-		thread2 = Thread(target = Volpy, args = ())
+		thread1 = Thread(target = facepy, args = ("active",))
+		thread2 = Thread(target = Volpy, args = ("active",))
 		thread1.start()
 		thread2.start()
+
+main()

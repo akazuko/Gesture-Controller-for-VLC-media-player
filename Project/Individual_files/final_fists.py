@@ -14,7 +14,7 @@ cam = Camera()
 m = PyMouse()
 user = getpass.getuser()
 (Sz_x,Sz_y) = m.screen_size()
-d = Display()
+d = Display((320,240))
 
 path = "/home/" + user + "/VLC_Project/Project/XML/fist.xml"
 
@@ -34,11 +34,11 @@ def check_win():
 
 
 def check_pos(y):
-	if y<(110):
+	if y<(200):
 		kebd.press_key(kebd.control_l_key)
 		kebd.tap_key(kebd.up_key)
 		kebd.release_key(kebd.control_l_key)
-	elif y>(350):
+	elif y>(300):
 		kebd.press_key(kebd.control_l_key)
 		kebd.tap_key(kebd.down_key)
 		kebd.release_key(kebd.control_l_key)
@@ -65,12 +65,14 @@ def fistdetect():
 		#print str(fists[-1].coordinates())
 	img.save(d)	
 
+if "Linux" in os_detect():
 
-state = 0
-while True:
-	title = check_win()
-	
-	if "VLC media player" in title:
-		fistdetect()
-
+	state = 0
+	while True:
+		title = check_win()
+		
+		if "VLC media player" in title:
+			fistdetect()
+else:
+	print "Oops, you don't have Ubuntu installed and this project works on that only"
 	
