@@ -7,14 +7,14 @@ import gtk
 
 from SimpleCV import Camera, Display, Color
 from pykeyboard import PyKeyboard
-from pymouse import PyMouse
+
 
 kebd = PyKeyboard()
 cam = Camera()
-m = PyMouse()
+
 user = getpass.getuser()
-(Sz_x,Sz_y) = m.screen_size()
-d = Display((320,240))
+
+#d = Display((320,240))
 
 path = "/home/" + user + "/VLC_Project/Project/XML/fist.xml"
 
@@ -34,18 +34,18 @@ def check_win():
 
 
 def check_pos(y):
-	if y<(200):
+	if y<(120):			
 		kebd.press_key(kebd.control_l_key)
 		kebd.tap_key(kebd.up_key)
 		kebd.release_key(kebd.control_l_key)
-	elif y>(300):
+	elif y>(120):	
 		kebd.press_key(kebd.control_l_key)
 		kebd.tap_key(kebd.down_key)
 		kebd.release_key(kebd.control_l_key)
 
 
 def fistdetect():
-	img = cam.getImage()
+	img = cam.getImage().adaptiveScale((320,240))
 
 	fists = img.findHaarFeatures(path)
 	
@@ -63,7 +63,7 @@ def fistdetect():
 		fists[-1].draw(Color.YELLOW,10)
 		check_pos(fists[-1].y)
 		#print str(fists[-1].coordinates())
-	img.save(d)	
+	#img.save(d)	
 
 if "Linux" in os_detect():
 
