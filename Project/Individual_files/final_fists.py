@@ -14,7 +14,6 @@ cam = Camera()
 
 user = getpass.getuser()
 
-#d = Display((320,240))
 
 path = "/home/" + user + "/VLC_Project/Project/XML/fist.xml"
 
@@ -45,7 +44,7 @@ def check_pos(y):
 
 
 def fistdetect():
-	img = cam.getImage().adaptiveScale((320,240))
+	img = cam.getImage().adaptiveScale((320,240)).grayscale()
 
 	fists = img.findHaarFeatures(path)
 	
@@ -55,15 +54,14 @@ def fistdetect():
 	size = len(fists)
 
 	if(size == 1):
-		fists[0].draw(Color.YELLOW,10)
+		#fists[0].draw(Color.YELLOW,10)
 		check_pos(fists[0].y)
 		#print str(fists[0].coordinates())
 		
 	elif(size>1):
-		fists[-1].draw(Color.YELLOW,10)
+		
 		check_pos(fists[-1].y)
-		#print str(fists[-1].coordinates())
-	#img.save(d)	
+	
 
 if "Linux" in os_detect():
 

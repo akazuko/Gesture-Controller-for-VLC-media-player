@@ -13,7 +13,7 @@ from pykeyboard import PyKeyboard
 kebd = PyKeyboard()
 cam = Camera()
 user = getpass.getuser()
-d = Display()
+
 
 path1 = "/home/" + user + "/VLC_Project/Project/XML/face2.xml"
 path2 = "/home/" + user + "/VLC_Project/Project/XML/fist.xml"
@@ -39,7 +39,7 @@ def check_win():
 
 #TO DETECT THE FACE 
 def facedetect():
-	img = cam.getImage()
+	img = cam.getImage().adaptiveScale((320,240)).grayscale()
 
 	faces = img.findHaarFeatures(path1)
 		
@@ -59,11 +59,11 @@ def simulate():
 
 #TO SIMULATE THE VOLUME KEYS UPON FIST MOVEMENTS 
 def check_pos(y):
-	if y<(110):
+	if y<(120):
 		kebd.press_key(kebd.control_l_key)
 		kebd.tap_key(kebd.up_key)
 		kebd.release_key(kebd.control_l_key)
-	elif y>(350):
+	elif y>(120):
 		kebd.press_key(kebd.control_l_key)
 		kebd.tap_key(kebd.down_key)
 		kebd.release_key(kebd.control_l_key)
@@ -72,7 +72,7 @@ def check_pos(y):
 
 #TO DETECT THE FIST
 def fistdetect():
-	img = cam.getImage()
+	img = cam.getImage().adaptiveScale((320,240)).grayscale()
 
 	fists = img.findHaarFeatures(path2)
 	
@@ -82,15 +82,15 @@ def fistdetect():
 	size = len(fists)
 
 	if(size == 1):
-		fists[0].draw(Color.YELLOW,10)
+		
 		check_pos(fists[0].y)
-		#print str(fists[0].coordinates())
+		
 		
 	elif(size>1):
-		fists[-1].draw(Color.YELLOW,10)
+		
 		check_pos(fists[-1].y)
-		#print str(fists[-1].coordinates())
-	img.save(d)	
+		
+	
 
 
 
