@@ -1,8 +1,10 @@
+import cv2
 import platform
 import time
 import getpass
 
 from threading import Thread
+from queue import Queue
 
 import wnck
 import gtk
@@ -110,6 +112,9 @@ def facepy(stat):
 			elif(state ==0 and face == 5):
 				simulate()
 				state = 1
+		k = cv2.waitKey(33)	
+		if k == 27:
+			break
 
 
 
@@ -121,15 +126,18 @@ def Volpy(state):
 		
 		if "VLC media player" in title:
 			fistdetect()
-
+		k = cv2.waitKey(33)	
+		if k == 27:
+			break
 
 
 def main():
 	print "FEATURE BASED RECOGNITION INITIATED"
 	if __name__ == "__main__":
-		thread1 = Thread(target = facepy, args = ("active",))
-		thread2 = Thread(target = Volpy, args = ("active",))
+		thread1 = Thread(target = facepy, args = ("active",q,))
+		thread2 = Thread(target = Volpy, args = ("active",q,))
 		thread1.start()
 		thread2.start()
+		print "lk"
 
 main()
