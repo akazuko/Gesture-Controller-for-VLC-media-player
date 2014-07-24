@@ -4,7 +4,6 @@ import time
 import getpass
 
 from threading import Thread
-from queue import Queue
 
 import wnck
 import gtk
@@ -41,14 +40,81 @@ def check_win():
 
 #TO DETECT THE FACE 
 def facedetect():
-	img = cam.getImage().adaptiveScale((320,240)).grayscale()
+	img = cam.getImage().grayscale().adaptiveScale((320,320))
+	
+	faces = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/face2.xml")
+	noses = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/nose.xml")
+	right_eyes = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/right_eye.xml")
+	left_eyes = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/lefteye.xml")
 
-	faces = img.findHaarFeatures(path1)
+	l1 = len(faces)
+	l2 = len(noses)
+	l4 = len(right_eyes)
+	l5 = len(left_eyes)
+
+	nose_x=0
+	nose_y=0
+	r_eye_x=0
+	r_eye_y=0
+	l_eye_x=0
+	l_eye_y=0
+	dim_x=0
+	dim_y=0
+
+	if l1 == 1:
 		
-	if(faces):
-		return 3
-	else:
-		return 5
+		limit_x = faces[0].width()
+		limit_y = faces[0].height()
+		face = faces[0]
+		(face_oX,face_oY) = (face.points[0][0],face.points[0][1])
+		(dim_x,dim_y) = (face_oX + limit_x,face_oY + limit_y)
+	
+	elif l1>1:
+		faces = faces.sortArea()
+		
+		limit_x = faces[-1].width()
+		limit_y = faces[-1].height()
+		face = faces[-1]
+		(face_oX,face_oY) = (face.points[0][0],face.points[0][1])
+		(dim_x,dim_y) = (face_oX + limit_x,face_oY + limit_y)
+	
+
+	if l2 == 1:
+		
+		(nose_x,nose_y) = noses[0].coordinates()
+	
+	elif l2>1:
+		
+		noses = noses.sortArea()	
+		(nose_x,nose_y) = noses[-1].coordinates()
+	
+
+	if l4 == 1:
+
+		(r_eye_x,r_eye_y) = right_eyes[0].coordinates()
+	
+	elif l4>1:
+
+		right_eyes = right_eyes.sortArea()
+		(r_eye_x,r_eye_y) = right_eyes[-1].coordinates()
+
+	if l5 == 1:
+
+		(l_eye_x,l_eye_y) = left_eyes[0].coordinates()
+	
+	elif l5>1:
+		
+		left_eyes = left_eyes.sortArea()
+		(l_eye_x,l_eye_y) = left_eyes[-1].coordinates()
+
+
+	if faces is not None:
+		if ((l_eye_x < dim_x and l_eye_y < dim_y) or (r_eye_x < dim_x and r_eye_y < dim_y) or (nose_x < dim_x and nose_y < dim_y)):
+			return 3
+		else:
+			return 5
+
+		
 				
 
 
@@ -86,12 +152,13 @@ def fistdetect():
 	if(size == 1):
 		
 		check_pos(fists[0].y)
+		time.sleep(0.5)
 		
 		
 	elif(size>1):
 		
 		check_pos(fists[-1].y)
-		
+		time.sleep(0.5)
 	
 
 
@@ -134,10 +201,10 @@ def Volpy(state):
 def main():
 	print "FEATURE BASED RECOGNITION INITIATED"
 	if __name__ == "__main__":
-		thread1 = Thread(target = facepy, args = ("active",q,))
-		thread2 = Thread(target = Volpy, args = ("active",q,))
+		thread1 = Thread(target = facepy, args = ("active",))
+		thread2 = Thread(target = Volpy, args = ("active",))
 		thread1.start()
 		thread2.start()
-		print "lk"
+		
 
 main()

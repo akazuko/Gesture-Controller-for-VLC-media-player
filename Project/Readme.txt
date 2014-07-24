@@ -35,7 +35,7 @@ If working with Individual Files:
 If working with final_release.py :
 
 1.Close the Terminal
-2.In the message box, click Kill the process option.
+2.In the message box, click Kill the process/Terminal option.
 
 Enjoy!!!
 

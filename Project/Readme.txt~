@@ -25,9 +25,19 @@ Steps to run
 	python final.py
 
 
-Steps to Close
-1. Go to Terminal
-2. Press Ctrl + C
+Steps to Close:
+
+If working with Individual Files:
+
+1.Go to the Terminal
+2.Press Ctrl+C
+
+If working with final_release.py :
+
+1.Close the Terminal
+2.In the message box, click Kill the process option.
+
+Enjoy!!!
 
 IF YOU ENCOUNTER ANY ERRORS OR EXECUTION PROBLEM PLEASE REPORT ME 
 Email ID : sharma.ayush1995@gmail.com
