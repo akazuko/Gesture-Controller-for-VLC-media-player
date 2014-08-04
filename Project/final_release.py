@@ -18,6 +18,9 @@ user = getpass.getuser()
 
 path1 = "/home/" + user + "/VLC_Project/Project/XML/face2.xml"
 path2 = "/home/" + user + "/VLC_Project/Project/XML/fist.xml"
+path3 = "/home/" + user + "/SimpleCV/SimpleCV/Features/HaarCascades/nose.xml"
+path4 = "/home/" + user + "/SimpleCV/SimpleCV/Features/HaarCascades/right_eye.xml"
+path5 = "/home/" + user + "/SimpleCV/SimpleCV/Features/HaarCascades/lefteye.xml"
 
 #TO DETECT THE OPERATING SYSTEM
 def os_detect():
@@ -42,10 +45,10 @@ def check_win():
 def facedetect():
 	img = cam.getImage().grayscale().adaptiveScale((320,320))
 	
-	faces = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/face2.xml")
-	noses = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/nose.xml")
-	right_eyes = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/right_eye.xml")
-	left_eyes = img.findHaarFeatures("/home/ayush/SimpleCV/SimpleCV/Features/HaarCascades/lefteye.xml")
+	faces = img.findHaarFeatures(path1)
+	noses = img.findHaarFeatures(path3)
+	right_eyes = img.findHaarFeatures(path4)
+	left_eyes = img.findHaarFeatures(path5)
 
 	l1 = len(faces)
 	l2 = len(noses)
