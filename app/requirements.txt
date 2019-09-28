@@ -1,0 +1,6 @@
+keyboard
+opencv-python
+tensorflow
+Pillow
+mtcnn
+matplotlib

@@ -1,7 +1,20 @@
-# VLC Media Player controller
+# Gesture Controller for VLC Media Player
 
-By : Ayush Sharma, 2013A7PS083G
+## To run the app:
 
-Installation :
-
-Step 1 : ``` sudo apt-get install python-opencv ```
+- install the requirements
+    ``` bash
+    pip install -r app/requirements.txt
+    ```
+- set the env
+    ```bash
+    export PYTHONPATH=${PWD}/app:${PYTHONPATH}
+    ```
+- to detect faces in a single image:
+    ``` bash
+    python app/face_detector.py --filename path/to/file
+    ```
+- to run the app
+    ``` bash
+    python app/main.py
+    ```
